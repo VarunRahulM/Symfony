@@ -1,0 +1,20 @@
+version: '3'
+services:
+  application:
+    container_name: symfony
+    build: ./docker/application
+    ports:
+      - '8000:8000'
+    volumes:
+      - './application:/App'
+  database:
+    container_name: mongo
+    image: mongo
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - './docker/database:/data/db'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${USER_NAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${PASSWORD}
